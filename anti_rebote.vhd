@@ -10,7 +10,7 @@ package anti_rebote_pkg is
             btn : in std_logic;
             bto : out std_logic);
     end component;
-end package
+end package;
 
 library IEEE;
 use IEEE.std_logic_1154.all;
@@ -22,6 +22,7 @@ entity anti_rebote is
         clk : in std_logic;
         btn : in std_logic;
         bto : out std_logic);
+
 end anti_rebote;
 
 architecture registro of anti_rebote is
