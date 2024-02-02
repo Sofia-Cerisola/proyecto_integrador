@@ -8,7 +8,7 @@ entity teclado is
     port (
         clk         : in std_logic;
         fil         : out std_logic_vector (3 downto 0);
-        col         : in std_logic_vector (3 downto 0);
+        col         : in std_logic_vector (2 downto 0);
         teclas      : out integer);
 end teclado;
 
@@ -17,7 +17,8 @@ architecture teclado_mat of teclado is
     signal frec_reg, frec_ar, flag : std_logic;  --frecuencias reducidas (registro y anti rebote) y banderas de guardado
 
     signal reg     : std_logic_vector (3 downto 0) := "0001";  --fila (registro)
-    signal bcd, cl : std_logic_vector (3 downto 0);  --numero bcd, columna limpia
+    signal bcd     : std_logic_vector (3 downto 0);  -- Numero bcd
+    signal cl      : std_logic_vector (2 downto 0);  -- Columna limpia
     signal col_fil : std_logic_vector (6 downto 0);  -- combinacion de columna y fila
 
 begin
@@ -37,7 +38,7 @@ begin
     --  Determinar el numero de ciclos a partir del reloj de la fpga
 
     -- Anti rebote
-    for i in 0 to 3 generate
+    for i in 0 to 2 generate
         anti_reb : anti_rebote port map (
             clk     => frec_ar,
             pul_in  => col(i),
@@ -56,7 +57,7 @@ begin
     -- Memoria de salida
     process (frec_reg, flag)
     begin
-        flag <= cl(0) or cl(1) or cl(2) or cl(3);
+        flag <= cl(0) or cl(1) or cl(2);
 
         if rising_edge(flag) then
             col_fil <= col & reg;
