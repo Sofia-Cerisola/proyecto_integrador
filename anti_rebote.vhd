@@ -7,8 +7,8 @@ package anti_rebote_pkg is
     component anti_rebote is
         port(
             clk : in std_logic;
-            btn : in std_logic;
-            bto : out std_logic);
+            pul_in : in std_logic;
+            pul_out : out std_logic);
     end component;
 end package;
 
@@ -19,26 +19,26 @@ use IEEE.std_logic_unsigned.all;
 
 entity anti_rebote is
     port(
-        clk : in std_logic;
-        btn : in std_logic;
-        bto : out std_logic);
+        clk     : in std_logic;
+        pul_in  : in std_logic;    --Pulso de entrada
+        pul_out : out std_logic);  -- Pulso de salida limpio
 
 end anti_rebote;
 
 architecture registro of anti_rebote is
-    signal reg : std_logic_vector (7 downto 0);
+    signal reg : std_logic_vector (7 downto 0); 
 begin
     
-    process(btn, clk)
+    process(pul_in, clk)
     begin
         if rising_edge(clk) then
-            reg <= reg(6 downto 0) & btn;
+            reg <= reg(6 downto 0) & pul_in;
         end if;
 
         if reg = x"FF" then
-            bto <= '1';
+            pul_out <= '1';
         else
-            bto <= '1';
+            pul_out <= '0';
         end if;
     end process;
 

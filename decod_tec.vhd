@@ -24,4 +24,19 @@ end decod_tec;
 
 architecture decodificador of decod_tec is 
 begin
+
+    with bcd select teclas <=
+        0 when "0000",
+        1 when "0001",
+        2 when "0010",
+        3 when "0011",
+        4 when "0100",
+        5 when "0101",
+        6 when "0110",
+        7 when "0111",
+        8 when "1000",
+        9 when "1001",
+        "" when "1010",
+        "" when "1011",
+
 end decodificador;
