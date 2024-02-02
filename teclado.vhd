@@ -39,9 +39,9 @@ begin
     -- Anti rebote
     for i in 0 to 3 generate
         anti_reb : anti_rebote port map (
-            clk => frec_ar,
-            btn => col(i),
-            bto => cl(i)
+            clk     => frec_ar,
+            pul_in  => col(i),
+            pul_out => cl(i)
         );
     end generate;
 
